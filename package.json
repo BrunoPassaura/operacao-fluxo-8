@@ -1,0 +1,14 @@
+{
+  "name": "operacao-fluxo-8",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jogo Lean sobre os 8 desperdicios com QR de acesso.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node --check server.js && node --check app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

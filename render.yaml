@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: operacao-fluxo-8
+    runtime: node
+    plan: free
+    buildCommand: yarn build
+    startCommand: yarn start

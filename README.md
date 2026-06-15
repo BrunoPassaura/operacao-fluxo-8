@@ -14,3 +14,12 @@ Abra `index.html` no navegador.
 4. Clique no botão de QR no topo do jogo.
 
 Cada aparelho cria sua própria sessão automaticamente. O resultado pode ser exportado em CSV no fim do jogo.
+
+## Deploy no Render
+
+Crie como Web Service com:
+
+- Build Command: `yarn build`
+- Start Command: `yarn start`
+
+O servidor usa automaticamente a variável `PORT` fornecida pelo Render.
