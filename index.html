@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LEAN 8 | Desperdícios</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-mark" aria-hidden="true">
+          <span>L8</span>
+        </div>
+        <div class="brand-copy">
+          <p>Jogo Lean</p>
+          <h1>Operação Fluxo 8</h1>
+        </div>
+        <div class="topbar-actions">
+          <span class="session-pill" id="sessionPill">Sessão</span>
+          <button class="icon-button" id="openShare" type="button" aria-label="Abrir QR de acesso" title="QR de acesso">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"></path>
+              <path d="M14 14h2v2h-2zM18 14h2v4h-2zM14 18h4v2h-4zM20 20h-2v-2h2z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="screen intro-screen is-active" id="introScreen">
+        <section class="intro-panel">
+          <div class="intro-copy">
+            <p class="eyebrow">8 desperdícios do Lean</p>
+            <h2>Salve o fluxo antes que a fábrica trave.</h2>
+            <p class="intro-text">Classifique os problemas, use cartas Kaizen e feche o turno com o melhor resultado.</p>
+          </div>
+
+          <form class="player-form" id="playerForm">
+            <label for="playerName">Nome do jogador</label>
+            <div class="start-row">
+              <input id="playerName" name="playerName" type="text" autocomplete="name" maxlength="32" placeholder="Digite seu nome">
+              <button class="primary-button" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path class="fill-icon" d="M7 5v14l11-7z"></path>
+                </svg>
+                Começar
+              </button>
+            </div>
+          </form>
+
+          <div class="quick-stats" aria-label="Resumo do jogo">
+            <div>
+              <strong>16</strong>
+              <span>situações</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>cartas Kaizen</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>sessão individual</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="factory-visual" aria-label="Célula Lean em movimento">
+          <div class="factory-skyline" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="flow-board">
+            <div class="flow-stage is-hot">
+              <span>Entrada</span>
+              <b>Pedido</b>
+            </div>
+            <div class="flow-stage">
+              <span>Célula</span>
+              <b>Valor</b>
+            </div>
+            <div class="flow-stage">
+              <span>Cliente</span>
+              <b>Entrega</b>
+            </div>
+          </div>
+          <div class="conveyor" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="waste-stack" aria-hidden="true">
+            <span>D</span><span>O</span><span>W</span><span>N</span><span>T</span><span>I</span><span>M</span><span>E</span>
+          </div>
+        </section>
+      </main>
+
+      <main class="screen game-screen" id="gameScreen">
+        <section class="hud-band" aria-label="Indicadores do turno">
+          <div class="metric">
+            <span>Pontos</span>
+            <strong id="scoreMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span>Acertos</span>
+            <strong id="accuracyMetric">0%</strong>
+          </div>
+          <div class="metric">
+            <span>Combo</span>
+            <strong id="streakMetric">0</strong>
+          </div>
+          <div class="metric">
+            <span>Turno</span>
+            <strong id="roundMetric">1/16</strong>
+          </div>
+        </section>
+
+        <section class="timer-band" aria-label="Tempo restante">
+          <div class="timer-track">
+            <span id="timerFill"></span>
+          </div>
+          <strong id="timeMetric">120s</strong>
+        </section>
+
+        <section class="play-layout">
+          <div class="incident-zone">
+            <div class="process-strip" aria-hidden="true" id="processStrip"></div>
+            <article class="incident-card" id="incidentCard">
+              <p class="incident-kicker">Situação no gemba</p>
+              <h2 id="incidentTitle">Preparando o turno...</h2>
+              <p id="incidentText">O cartão de problema aparece aqui.</p>
+              <div class="incident-footer">
+                <span id="difficultyBadge">Risco médio</span>
+                <span id="hintBadge">Fluxo</span>
+              </div>
+            </article>
+
+            <div class="kaizen-row" aria-label="Cartas Kaizen">
+              <button class="power-card" type="button" data-power="andon">
+                <span class="power-icon">A</span>
+                <strong>Andon</strong>
+                <small>+12s</small>
+              </button>
+              <button class="power-card" type="button" data-power="fiveS">
+                <span class="power-icon">5S</span>
+                <strong>5S</strong>
+                <small>limpa 3</small>
+              </button>
+              <button class="power-card" type="button" data-power="poka">
+                <span class="power-icon">P</span>
+                <strong>Poka-yoke</strong>
+                <small>protege</small>
+              </button>
+            </div>
+          </div>
+
+          <aside class="choice-zone">
+            <div class="choice-header">
+              <span>Escolha o desperdício</span>
+              <strong>DOWNTIME</strong>
+            </div>
+            <div class="waste-grid" id="wasteGrid"></div>
+          </aside>
+        </section>
+
+        <section class="feedback-panel" id="feedbackPanel" aria-live="polite">
+          <strong>Fluxo pronto.</strong>
+          <span>Classifique a primeira situação.</span>
+        </section>
+      </main>
+
+      <main class="screen result-screen" id="resultScreen">
+        <section class="result-hero">
+          <p class="eyebrow">Resultado da sessão</p>
+          <h2 id="rankTitle">Faixa Kaizen</h2>
+          <p id="rankText">Seu fechamento de turno aparece aqui.</p>
+          <div class="result-actions">
+            <button class="primary-button" id="playAgain" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 5v6h6M19 19v-6h-6"></path>
+                <path d="M7 10a6 6 0 0 1 10-3M17 14a6 6 0 0 1-10 3"></path>
+              </svg>
+              Jogar de novo
+            </button>
+            <button class="secondary-button" id="exportResult" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12M7 10l5 5 5-5"></path>
+                <path d="M5 19h14"></path>
+              </svg>
+              Exportar
+            </button>
+          </div>
+        </section>
+
+        <section class="result-grid">
+          <div class="result-metric">
+            <span>Pontos</span>
+            <strong id="finalScore">0</strong>
+          </div>
+          <div class="result-metric">
+            <span>Precisão</span>
+            <strong id="finalAccuracy">0%</strong>
+          </div>
+          <div class="result-metric">
+            <span>Melhor combo</span>
+            <strong id="finalCombo">0</strong>
+          </div>
+          <div class="result-metric">
+            <span>Tempo</span>
+            <strong id="finalTime">0s</strong>
+          </div>
+        </section>
+
+        <section class="analysis-zone">
+          <div>
+            <h3>Mapa dos desperdícios</h3>
+            <div class="waste-bars" id="wasteBars"></div>
+          </div>
+          <div>
+            <h3>Plano Kaizen</h3>
+            <div class="kaizen-plan" id="kaizenPlan"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="share-dialog" id="shareDialog">
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">Acesso por QR</p>
+          <h2>Compartilhar jogo</h2>
+        </div>
+        <form method="dialog">
+          <button class="icon-button" aria-label="Fechar" title="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+      <label for="shareUrl">Link de acesso</label>
+      <div class="share-row">
+        <input id="shareUrl" type="url" spellcheck="false">
+        <button class="secondary-button" id="makeQr" type="button">Gerar</button>
+      </div>
+      <div class="qr-frame">
+        <canvas id="qrCanvas" width="296" height="296" aria-label="QR code de acesso"></canvas>
+      </div>
+      <p class="qr-status" id="qrStatus">Pronto para gerar.</p>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
